@@ -1,0 +1,11 @@
+suites:
+  application_suite:
+    namespace: Application
+    src_path: module/Application/src/
+    spec_path: module/Application
+    psr4_prefix: Application
+  infrastructure_suite:
+    namespace: Infrastructure
+    src_path: module/Infrastructure/src/
+    spec_path: module/Infrastructure
+    psr4_prefix: Infrastructure
