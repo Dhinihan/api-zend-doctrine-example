@@ -1,0 +1,17 @@
+engines:
+  phpcodesniffer:
+    enabled: true
+    config:
+      standard: "PSR1,PSR2,phpcs.xml"
+    checks:
+      PSR1 Methods CamelCapsMethodName NotCamelCaps:
+        enabled: false
+  phpmd:
+    enabled: false
+    config:
+      file_extensions: "php"
+      rulesets: "unusedcode,codesize,naming"
+
+ratings:
+  paths:
+  - "**.php"
