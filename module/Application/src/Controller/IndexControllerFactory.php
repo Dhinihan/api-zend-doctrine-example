@@ -2,7 +2,7 @@
 
 namespace Application\Controller;
 
-use Application\Repository\ExampleRepository;
+use Library\Repository\ExampleRepository;
 use Interop\Container\ContainerInterface;
 use Zend\ServiceManager\Factory\FactoryInterface;
 use Zend\ServiceManager\ServiceLocatorInterface;

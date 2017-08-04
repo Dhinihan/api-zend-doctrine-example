@@ -9,3 +9,8 @@ suites:
     src_path: module/Infrastructure/src/
     spec_path: module/Infrastructure
     psr4_prefix: Infrastructure
+  library_suite:
+    namespace: Library
+    src_path: module/Library/src/
+    spec_path: module/Library
+    psr4_prefix: Library

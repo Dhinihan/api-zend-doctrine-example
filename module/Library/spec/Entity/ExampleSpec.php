@@ -1,8 +1,8 @@
 <?php
 
-namespace spec\Application\Entity;
+namespace spec\Library\Entity;
 
-use Application\Entity\Example;
+use Library\Entity\Example;
 use PhpSpec\ObjectBehavior;
 use Prophecy\Argument;
 use Ramsey\Uuid\Uuid;
@@ -25,5 +25,10 @@ class ExampleSpec extends ObjectBehavior
     public function it_can_be_an_array()
     {
         $this->toArray()->shouldHaveKeyWithValue('id', $this->id->toString());
+    }
+
+    public function it_can_be_json_serialized()
+    {
+        $this->jsonSerialize()->shouldHaveKeyWithValue('id', $this->id->toString());
     }
 }

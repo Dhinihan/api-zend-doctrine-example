@@ -1,8 +1,8 @@
 <?php
 
-namespace spec\Application\Repository;
+namespace spec\Library\Repository;
 
-use Application\Repository\ExampleRepository;
+use Library\Repository\ExampleRepository;
 use Doctrine\ORM\EntityManager;
 use Infrastructure\Repository\RepositoryInterface;
 use PhpSpec\ObjectBehavior;

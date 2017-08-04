@@ -1,8 +1,8 @@
 <?php
 
-namespace Application\Repository;
+namespace Library\Repository;
 
-use Application\Entity\Example;
+use Library\Entity\Example;
 use Doctrine\ORM\EntityManager;
 use Infrastructure\Repository\AbstractDoctrineRepository;
 

@@ -10,8 +10,10 @@ namespace Application;
 use Application\Controller\AbstractCrudController;
 use Application\Controller\IndexController;
 use Application\Controller\IndexControllerFactory;
-use Application\Repository\ExampleRepository;
-use Application\Repository\ExampleRepositoryFactory;
+use Library\Repository\ExampleRepository;
+use Library\Repository\ExampleRepositoryFactory;
+use Infrastructure\Rest\JsonError;
+use Ramsey\Uuid\Doctrine\UuidType;
 use Zend\Router\Http\Literal;
 use Zend\Router\Http\Segment;
 use Zend\ServiceManager\Factory\InvokableFactory;
@@ -20,17 +22,33 @@ use Zend\Stdlib\ArrayUtils;
 return ArrayUtils::merge(
     AbstractCrudController::config(IndexController::class, 'application'),
     [
+        'api-problem' => [
+            'render_error_controllers' => IndexController::class
+        ],
         'controllers' => [
             'factories' => [
                 IndexController::class => IndexControllerFactory::class
             ],
         ],
+        'listeners' => [
+            JsonError::class
+        ],
         'service_manager' => [
             'factories' => [
-                ExampleRepository::class => ExampleRepositoryFactory::class
+                ExampleRepository::class => ExampleRepositoryFactory::class,
+                JsonError::class => InvokableFactory::class
             ],
         ],
         'view_manager' => [
+            'template_path_stack' => [
+                'application' => __DIR__ . '/../view',
+            ],
+            'template_map' => [
+                'application/index/index' => __DIR__ . '/../view/application/index/index.phtml',
+                'site/layout'             => __DIR__ . '/../view/layout/layout.phtml',
+                'error'                   => __DIR__ . '/../view/error/index.phtml',
+                'error/404'               => __DIR__ . '/../view/error/404.phtml',
+            ],
             'strategies' => [
                 'ViewJsonStrategy'
             ],
@@ -51,14 +69,14 @@ return ArrayUtils::merge(
                 'orm_default' => [
                     'drivers' => [
                         // register `my_annotation_driver` for any entity under namespace `My\Namespace`
-                        'Application\Entity' => 'my_annotation_driver',
+                        'Library\Entity' => 'my_annotation_driver',
                     ],
                 ],
             ],
             'configuration' => [
                 'orm_default' => [
                     'types' => [
-                        'uuid' => 'Infrastructure\DoctrineType\Uuid',
+                        'uuid' => UuidType::class,
                     ],
                 ],
             ],

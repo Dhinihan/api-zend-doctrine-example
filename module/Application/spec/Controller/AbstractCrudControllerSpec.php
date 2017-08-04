@@ -3,6 +3,7 @@
 namespace spec\Application\Controller;
 
 use Application\Controller\AbstractCrudController;
+use Library\Entity\EntityInterface;
 use Infrastructure\Repository\RepositoryInterface;
 use PhpSpec\ObjectBehavior;
 use Zend\Mvc\Controller\AbstractRestfulController;
@@ -54,6 +55,21 @@ class AbstractCrudControllerSpec extends ObjectBehavior
         $json->shouldContain('"page":1');
         $json->shouldContain('"page_size":25');
         $json->shouldContain('"items":[{"id":1},{"id":2},{"id":3},{"id":4}]');
+    }
+
+    public function it_can_get_a_specific_entity(EntityInterface $entity)
+    {
+        $this->repository->get(1)->willReturn($entity);
+        $entity->toArray()->willReturn([
+            'id' => 1,
+            'nome' => 'Um Nome',
+        ]);
+
+        $response = $this->get(1);
+        $json = $response->serialize();
+
+        $json->shouldContain('"id":1');
+        $json->shouldContain('"nome":"Um Nome"');
     }
 
     public function getMatchers()

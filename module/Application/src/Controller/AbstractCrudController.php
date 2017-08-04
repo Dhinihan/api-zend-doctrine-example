@@ -37,19 +37,22 @@ abstract class AbstractCrudController extends AbstractRestfulController
 
     public function getList()
     {
-        try {
-            $items = [];
-            $paginator = $this->repository->generatePaginator();
-            $items['total_items'] = $paginator->getTotalItemCount();
-            $items['page'] = $this->params()->fromQuery('page', 1);
-            $items['page_size'] = $this->params()->fromQuery('limit', 25);
+        $items = [];
+        $paginator = $this->repository->generatePaginator();
+        $items['total_items'] = $paginator->getTotalItemCount();
+        $items['page'] = $this->params()->fromQuery('page', 1);
+        $items['page_size'] = $this->params()->fromQuery('limit', 25);
 
-            $paginator->setItemCountPerPage($items['page_size']);
-            $items['items'] = (array) $paginator->getItemsByPage($items['page']);
-        } catch (\Exception $e) {
-            die(var_dump($e->getMessage()));
-        }
+        $paginator->setItemCountPerPage($items['page_size']);
+        $items['items'] = (array) $paginator->getItemsByPage($items['page']);
 
         return new JsonModel($items);
+    }
+
+    public function get($id)
+    {
+        $entity = $this->repository->get($id);
+        $data = $entity->toArray();
+        return new JsonModel($data);
     }
 }

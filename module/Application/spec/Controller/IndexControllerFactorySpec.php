@@ -4,7 +4,7 @@ namespace spec\Application\Controller;
 
 use Application\Controller\IndexController;
 use Application\Controller\IndexControllerFactory;
-use Application\Repository\ExampleRepository;
+use Library\Repository\ExampleRepository;
 use Infrastructure\Repository\RepositoryInterface;
 use Interop\Container\ContainerInterface;
 use PhpSpec\ObjectBehavior;

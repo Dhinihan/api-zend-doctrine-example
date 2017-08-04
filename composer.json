@@ -22,12 +22,14 @@
         "zendframework/zend-log": "^2.9",
         "zendframework/zend-psr7bridge": "^0.2.2",
         "zendframework/zend-paginator": "^2.7.0",
-        "ramsey/uuid": "^3.6"
+        "ramsey/uuid": "^3.6",
+        "ramsey/uuid-doctrine": "^1.4"
     },
     "autoload": {
         "psr-4": {
             "Application\\": "module/Application/src/",
-            "Infrastructure\\": "module/Infrastructure/src/"
+            "Infrastructure\\": "module/Infrastructure/src/",
+            "Library\\": "module/Library/src/"
         }
     },
     "autoload-dev": {
@@ -52,6 +54,8 @@
     "require-dev": {
         "zendframework/zend-test": "^3.0.1",
         "phpunit/phpunit": "^6.0",
-        "phpspec/phpspec": "^3.0"
+        "phpspec/phpspec": "^3.0",
+        "leanphp/phpspec-code-coverage": "^3.1",
+        "phpunit/dbunit": "^3.0"
     }
 }

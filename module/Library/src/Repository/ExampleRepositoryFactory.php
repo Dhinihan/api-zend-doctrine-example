@@ -1,6 +1,6 @@
 <?php
 
-namespace Application\Repository;
+namespace Library\Repository;
 
 use Interop\Container\ContainerInterface;
 use Zend\ServiceManager\Factory\FactoryInterface;

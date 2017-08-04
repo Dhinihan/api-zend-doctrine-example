@@ -1,8 +1,9 @@
 <?php
 
-namespace Application\Entity;
+namespace Library\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Library\Entity\EntityInterface;
 use Ramsey\Uuid\Uuid;
 use Zend\Stdlib\JsonSerializable;
 
@@ -10,7 +11,7 @@ use Zend\Stdlib\JsonSerializable;
  * @ORM\Entity
  * @ORM\Table(name="example")
  */
-class Example implements JsonSerializable
+class Example implements JsonSerializable, EntityInterface
 {
     /**
      * @ORM\Id
@@ -23,7 +24,8 @@ class Example implements JsonSerializable
         $this->id = $id;
     }
 
-    public function toArray()
+
+    public function toArray() : array
     {
         return ['id' => $this->id->toString()];
     }
