@@ -14,3 +14,15 @@ suites:
     src_path: module/Library/src/
     spec_path: module/Library
     psr4_prefix: Library
+
+
+extensions:
+  LeanPHP\PhpSpec\CodeCoverage\CodeCoverageExtension:
+    format:
+      - clover
+    output:
+      clover: coverage.xml
+    whitelist:
+      - module/Application/src
+      - module/Infrastructure/src
+      - module/Library/src

@@ -2,5 +2,10 @@ language: php
 php:
   - '7.0'
   - '7.1'
-install: composer install
-script: ./phpspec run -f pretty
+install:
+  - composer install
+  - ln -s vendor/bin/phpcs phpcs
+script:
+  - composer cs-check
+  - composer test
+after_script: vendor/bin/coveralls -v

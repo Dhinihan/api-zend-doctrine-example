@@ -6,3 +6,4 @@ data/cache/*
 !data/cache/.gitkeep
 phpunit.xml
 .php_cs.cache
+coverage.xml
