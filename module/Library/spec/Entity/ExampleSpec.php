@@ -13,7 +13,7 @@ class ExampleSpec extends ObjectBehavior
     public function let()
     {
         $this->id = Uuid::uuid1();
-        $this->beConstructedWith($this->id);
+        $this->beConstructedWith($this->id, 'A Description');
     }
 
     public function it_is_initializable()
@@ -23,11 +23,15 @@ class ExampleSpec extends ObjectBehavior
 
     public function it_can_be_an_array()
     {
-        $this->toArray()->shouldHaveKeyWithValue('id', $this->id->toString());
+        $array = $this->toArray();
+        $array->shouldHaveKeyWithValue('id', $this->id->toString());
+        $array->shouldHaveKeyWithValue('description', 'A Description');
     }
 
     public function it_can_be_json_serialized()
     {
-        $this->jsonSerialize()->shouldHaveKeyWithValue('id', $this->id->toString());
+        $array = $this->jsonSerialize();
+        $array->shouldHaveKeyWithValue('id', $this->id->toString());
+        $array->shouldHaveKeyWithValue('description', 'A Description');
     }
 }

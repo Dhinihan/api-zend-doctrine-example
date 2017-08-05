@@ -11,6 +11,7 @@ use Application\Controller\AbstractCrudController;
 use Application\Controller\IndexController;
 use Application\Controller\IndexControllerFactory;
 use Infrastructure\Rest\JsonError;
+use Library\Factory\ExampleFactory;
 use Library\Repository\ExampleRepository;
 use Library\Repository\ExampleRepositoryFactory;
 use Ramsey\Uuid\Doctrine\UuidType;
@@ -34,6 +35,7 @@ return ArrayUtils::merge(
         'service_manager' => [
             'factories' => [
                 ExampleRepository::class => ExampleRepositoryFactory::class,
+                ExampleFactory::class => InvokableFactory::class,
                 JsonError::class => InvokableFactory::class
             ],
         ],

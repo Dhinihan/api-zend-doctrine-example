@@ -20,6 +20,7 @@ extensions:
   LeanPHP\PhpSpec\CodeCoverage\CodeCoverageExtension:
     format:
       - clover
+      - text
     output:
       clover: coverage.xml
     whitelist:

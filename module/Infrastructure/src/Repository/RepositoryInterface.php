@@ -12,4 +12,6 @@ interface RepositoryInterface
     public function find($identifier);
 
     public function get($identifier) : EntityInterface;
+
+    public function save(EntityInterface $entity);
 }

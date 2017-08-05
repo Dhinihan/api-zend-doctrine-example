@@ -14,14 +14,14 @@ use Zend\Test\PHPUnit\Controller\AbstractHttpControllerTestCase;
 class IndexControllerTest extends AbstractHttpControllerTestCase
 {
     private $controller;
+    private $pdo;
 
     public function setUp()
     {
-        $pdo = new \PDO('pgsql:host=localhost;port=5432;dbname=api_teste;user=postgres');
-        $pdo->exec('TRUNCATE example');
-        $pdo->exec('INSERT INTO example VALUES (\'de5ff4ce-74c8-11e7-b5a5-be2e44b06b34\')');
-        $pdo->exec('INSERT INTO example VALUES (\'4b6771b8-74ca-11e7-b5a5-be2e44b06b34\')');
-
+        $this->pdo = new \PDO('pgsql:host=localhost;port=5432;dbname=api_teste;user=postgres');
+        $this->pdo->exec('TRUNCATE example');
+        $this->pdo->exec('INSERT INTO example VALUES (\'de5ff4ce-74c8-11e7-b5a5-be2e44b06b34\', \'An Example\')');
+        $this->pdo->exec('INSERT INTO example VALUES (\'4b6771b8-74ca-11e7-b5a5-be2e44b06b34\', \'Another Example\')');
 
         $configOverrides = [];
 
@@ -48,8 +48,14 @@ class IndexControllerTest extends AbstractHttpControllerTestCase
         $this->assertEquals($arrayBody['page'], 1);
         $this->assertEquals($arrayBody['page_size'], 25);
         $this->assertEquals($arrayBody['total_items'], 2);
-        $this->assertEquals($arrayBody['items'][0], ['id' => 'de5ff4ce-74c8-11e7-b5a5-be2e44b06b34']);
-        $this->assertEquals($arrayBody['items'][1], ['id' => '4b6771b8-74ca-11e7-b5a5-be2e44b06b34']);
+        $this->assertEquals($arrayBody['items'][0], [
+            'id' => 'de5ff4ce-74c8-11e7-b5a5-be2e44b06b34',
+            'description' => 'An Example'
+        ]);
+        $this->assertEquals($arrayBody['items'][1], [
+            'id' => '4b6771b8-74ca-11e7-b5a5-be2e44b06b34',
+            'description' => 'Another Example'
+        ]);
     }
 
     public function testGet()
@@ -60,6 +66,30 @@ class IndexControllerTest extends AbstractHttpControllerTestCase
         $body = $this->getResponse()->getBody();
         $arrayBody = json_decode($body, true);
 
-        $this->assertEquals($arrayBody, ['id' => 'de5ff4ce-74c8-11e7-b5a5-be2e44b06b34']);
+        $this->assertEquals($arrayBody, [
+            'id' => 'de5ff4ce-74c8-11e7-b5a5-be2e44b06b34',
+            'description' => 'An Example'
+        ]);
+    }
+
+    public function testPost()
+    {
+        $this->getRequest()
+            ->setMethod('POST')
+            ->setContent('{"description":"Yet Another Example"}');
+
+        $this->getRequest()->getHeaders()->addHeaderLine('Content-Type', 'application/json');
+
+        $this->dispatch('/application');
+        $this->assertResponseStatusCode(201);
+
+        $body = $this->getResponse()->getBody();
+        $arrayBody = json_decode($body, true);
+
+        $this->assertEquals($arrayBody['description'], 'Yet Another Example');
+
+        $result = $this->pdo->query('select description from example where id = \'' . $arrayBody['id'] . '\'');
+
+        $this->assertEquals('Yet Another Example', $result->fetchAll()[0]['description']);
     }
 }

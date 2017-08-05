@@ -18,15 +18,24 @@ class Example implements JsonSerializable, EntityInterface
      */
     private $id;
 
-    public function __construct(Uuid $id)
+    /**
+     * @ORM\Column(type="string")
+     */
+    private $description;
+
+    public function __construct(Uuid $id, string $description)
     {
         $this->id = $id;
+        $this->description = $description;
     }
 
 
     public function toArray() : array
     {
-        return ['id' => $this->id->toString()];
+        return [
+            'id' => $this->id->toString(),
+            'description' => $this->description
+        ];
     }
 
     public function jsonSerialize()

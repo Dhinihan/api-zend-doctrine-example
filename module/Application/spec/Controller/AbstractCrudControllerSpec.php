@@ -5,6 +5,7 @@ namespace spec\Application\Controller;
 use Application\Controller\AbstractCrudController;
 use Infrastructure\Repository\RepositoryInterface;
 use Library\Entity\EntityInterface;
+use Library\Factory\EntityFactoryInterface;
 use PhpSpec\ObjectBehavior;
 use Zend\Mvc\Controller\AbstractRestfulController;
 use Zend\Paginator\Paginator;
@@ -14,12 +15,14 @@ use Zend\View\Model\JsonModel;
 class AbstractCrudControllerSpec extends ObjectBehavior
 {
     private $repository;
+    private $factory;
 
-    public function let(RepositoryInterface $repository)
+    public function let(RepositoryInterface $repository, EntityFactoryInterface $factory)
     {
         $this->repository = $repository;
+        $this->factory = $factory;
         $this->beAnInstanceOf(DummyCrudController::class);
-        $this->beConstructedWith($repository);
+        $this->beConstructedWith($repository, $factory);
     }
 
     public function it_is_initializable()
@@ -70,6 +73,22 @@ class AbstractCrudControllerSpec extends ObjectBehavior
 
         $json->shouldContain('"id":1');
         $json->shouldContain('"nome":"Um Nome"');
+    }
+
+    public function it_can_create_an_entity(EntityInterface $entity)
+    {
+        $this->factory->createFromInput(['description' => 'An Entity'])->willReturn($entity);
+        $this->repository->save($entity)->shouldBeCalled();
+
+        $entity->toArray()->willReturn(['id' => 1, 'description' => 'An Entity']);
+
+        $response = $this->create(['description' => 'An Entity']);
+        $json = $response->serialize();
+
+        $json->shouldContain('"id":');
+        $json->shouldContain('"description":"An Entity"');
+
+        $this->getResponse()->getStatusCode()->shouldReturn(201);
     }
 
     public function getMatchers()

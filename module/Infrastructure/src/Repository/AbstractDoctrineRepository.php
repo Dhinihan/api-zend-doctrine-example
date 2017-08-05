@@ -5,6 +5,7 @@ namespace Infrastructure\Repository;
 use Doctrine\ORM\EntityManager;
 use DoctrineModule\Paginator\Adapter\Selectable;
 use Infrastructure\Exception\EntityNotFoundException;
+use Infrastructure\Exception\InvalidEntityType;
 use Library\Entity\EntityInterface;
 use Zend\Paginator\Paginator;
 
@@ -40,5 +41,15 @@ abstract class AbstractDoctrineRepository implements RepositoryInterface
             throw EntityNotFoundException::fromClassAndIdentifier($this->entityClass, $identifier);
         }
         return $entity;
+    }
+
+    public function save(EntityInterface $entity)
+    {
+        if (!($entity instanceof $this->entityClass)) {
+            throw InvalidEntityType::fromRightAndWrongClass($this->entityClass, get_class($entity));
+        }
+
+        $this->em->persist($entity);
+        $this->em->flush();
     }
 }
