@@ -2,10 +2,9 @@
 
 namespace Application\Controller;
 
-use Library\Repository\ExampleRepository;
 use Interop\Container\ContainerInterface;
+use Library\Repository\ExampleRepository;
 use Zend\ServiceManager\Factory\FactoryInterface;
-use Zend\ServiceManager\ServiceLocatorInterface;
 
 class IndexControllerFactory implements FactoryInterface
 {

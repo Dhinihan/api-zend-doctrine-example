@@ -2,12 +2,11 @@
 
 namespace spec\Library\Repository;
 
-use Library\Repository\ExampleRepository;
-use Library\Repository\ExampleRepositoryFactory;
 use Doctrine\ORM\EntityManager;
 use Interop\Container\ContainerInterface;
+use Library\Repository\ExampleRepository;
+use Library\Repository\ExampleRepositoryFactory;
 use PhpSpec\ObjectBehavior;
-use Prophecy\Argument;
 use Zend\ServiceManager\Factory\FactoryInterface;
 
 class ExampleRepositoryFactorySpec extends ObjectBehavior

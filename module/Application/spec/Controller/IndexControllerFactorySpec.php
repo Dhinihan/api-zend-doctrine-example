@@ -4,11 +4,9 @@ namespace spec\Application\Controller;
 
 use Application\Controller\IndexController;
 use Application\Controller\IndexControllerFactory;
-use Library\Repository\ExampleRepository;
-use Infrastructure\Repository\RepositoryInterface;
 use Interop\Container\ContainerInterface;
+use Library\Repository\ExampleRepository;
 use PhpSpec\ObjectBehavior;
-use Prophecy\Argument;
 
 class IndexControllerFactorySpec extends ObjectBehavior
 {

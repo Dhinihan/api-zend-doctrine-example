@@ -2,11 +2,10 @@
 
 namespace spec\Library\Repository;
 
-use Library\Repository\ExampleRepository;
 use Doctrine\ORM\EntityManager;
 use Infrastructure\Repository\RepositoryInterface;
+use Library\Repository\ExampleRepository;
 use PhpSpec\ObjectBehavior;
-use Prophecy\Argument;
 
 class ExampleRepositorySpec extends ObjectBehavior
 {

@@ -5,7 +5,6 @@ namespace spec\Infrastructure\Rest;
 use Infrastructure\Rest\JsonError;
 use PhpSpec\ObjectBehavior;
 use Prophecy\Argument;
-use Zend\Authentication\Result;
 use Zend\EventManager\EventManagerInterface;
 use Zend\Http\Request;
 use Zend\Http\Response;

@@ -7,9 +7,6 @@
 
 namespace Application\Controller;
 
-use Application\Controller\AbstractCrudController;
-use Zend\View\Model\JsonModel;
-
 class IndexController extends AbstractCrudController
 {
 }

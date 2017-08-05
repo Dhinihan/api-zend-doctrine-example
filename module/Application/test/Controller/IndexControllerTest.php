@@ -8,10 +8,6 @@
 namespace ApplicationTest\Controller;
 
 use Application\Controller\IndexController;
-use PHPUnit\DbUnit\DataSet\ArrayDataSet;
-use PHPUnit\DbUnit\TestCaseTrait;
-use Zend\Http\Request;
-use Zend\Http\Response;
 use Zend\Stdlib\ArrayUtils;
 use Zend\Test\PHPUnit\Controller\AbstractHttpControllerTestCase;
 

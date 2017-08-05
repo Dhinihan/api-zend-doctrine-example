@@ -2,9 +2,9 @@
 
 namespace Library\Repository;
 
-use Library\Entity\Example;
 use Doctrine\ORM\EntityManager;
 use Infrastructure\Repository\AbstractDoctrineRepository;
+use Library\Entity\Example;
 
 class ExampleRepository extends AbstractDoctrineRepository
 {

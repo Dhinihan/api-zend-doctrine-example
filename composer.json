@@ -40,7 +40,10 @@
     "extra": [],
     "scripts": {
         "cs-check": "phpcs",
-        "cs-fix": "phpcbf",
+        "cs-fix": [
+            "phpcbf",
+            "php-cs-fixer fix --show-progress=run-in -v"
+        ],
         "development-disable": "zf-development-mode disable",
         "development-enable": "zf-development-mode enable",
         "development-status": "zf-development-mode status",

@@ -4,7 +4,6 @@ namespace spec\Library\Entity;
 
 use Library\Entity\Example;
 use PhpSpec\ObjectBehavior;
-use Prophecy\Argument;
 use Ramsey\Uuid\Uuid;
 
 class ExampleSpec extends ObjectBehavior

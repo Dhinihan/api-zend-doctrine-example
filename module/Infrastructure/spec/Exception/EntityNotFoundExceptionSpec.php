@@ -4,7 +4,6 @@ namespace spec\Infrastructure\Exception;
 
 use Infrastructure\Exception\EntityNotFoundException;
 use PhpSpec\ObjectBehavior;
-use Prophecy\Argument;
 
 class EntityNotFoundExceptionSpec extends ObjectBehavior
 {
@@ -20,7 +19,7 @@ class EntityNotFoundExceptionSpec extends ObjectBehavior
 
     public function it_can_be_created_with_default_message()
     {
-        $this->beConstructedThrough('fromClassAndIdentifier', array('Entidade', 1));
+        $this->beConstructedThrough('fromClassAndIdentifier', ['Entidade', 1]);
         $this->getMessage()->shouldReturn('Entity of class Entidade with id 1 could not be found');
         $this->getCode()->shouldReturn(404);
     }

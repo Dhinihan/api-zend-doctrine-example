@@ -3,7 +3,6 @@
 namespace Library\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
-use Library\Entity\EntityInterface;
 use Ramsey\Uuid\Uuid;
 use Zend\Stdlib\JsonSerializable;
 

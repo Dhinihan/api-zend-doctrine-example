@@ -6,7 +6,6 @@ use Zend\EventManager\AbstractListenerAggregate;
 use Zend\EventManager\EventManagerInterface;
 use Zend\Mvc\MvcEvent;
 use Zend\View\Model\JsonModel;
-use Zend\Console\Request as ConsoleRequest;
 
 class JsonError extends AbstractListenerAggregate
 {

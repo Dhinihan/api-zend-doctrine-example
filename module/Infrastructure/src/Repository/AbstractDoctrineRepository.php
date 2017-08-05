@@ -2,10 +2,10 @@
 
 namespace Infrastructure\Repository;
 
-use DoctrineModule\Paginator\Adapter\Selectable;
 use Doctrine\ORM\EntityManager;
-use Library\Entity\EntityInterface;
+use DoctrineModule\Paginator\Adapter\Selectable;
 use Infrastructure\Exception\EntityNotFoundException;
+use Library\Entity\EntityInterface;
 use Zend\Paginator\Paginator;
 
 abstract class AbstractDoctrineRepository implements RepositoryInterface

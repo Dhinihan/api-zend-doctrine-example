@@ -4,11 +4,10 @@ namespace spec\Infrastructure\Repository;
 
 use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\EntityRepository;
-use Library\Entity\EntityInterface;
 use Infrastructure\Repository\AbstractDoctrineRepository;
 use Infrastructure\Repository\RepositoryInterface;
+use Library\Entity\EntityInterface;
 use PhpSpec\ObjectBehavior;
-use Prophecy\Argument;
 use Zend\Paginator\Paginator;
 
 class AbstractDoctrineRepositorySpec extends ObjectBehavior

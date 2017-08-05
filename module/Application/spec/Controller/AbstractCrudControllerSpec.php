@@ -3,8 +3,8 @@
 namespace spec\Application\Controller;
 
 use Application\Controller\AbstractCrudController;
-use Library\Entity\EntityInterface;
 use Infrastructure\Repository\RepositoryInterface;
+use Library\Entity\EntityInterface;
 use PhpSpec\ObjectBehavior;
 use Zend\Mvc\Controller\AbstractRestfulController;
 use Zend\Paginator\Paginator;

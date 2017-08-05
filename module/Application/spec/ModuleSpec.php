@@ -4,7 +4,6 @@ namespace spec\Application;
 
 use Application\Module;
 use PhpSpec\ObjectBehavior;
-use Prophecy\Argument;
 
 class ModuleSpec extends ObjectBehavior
 {

@@ -10,12 +10,10 @@ namespace Application;
 use Application\Controller\AbstractCrudController;
 use Application\Controller\IndexController;
 use Application\Controller\IndexControllerFactory;
+use Infrastructure\Rest\JsonError;
 use Library\Repository\ExampleRepository;
 use Library\Repository\ExampleRepositoryFactory;
-use Infrastructure\Rest\JsonError;
 use Ramsey\Uuid\Doctrine\UuidType;
-use Zend\Router\Http\Literal;
-use Zend\Router\Http\Segment;
 use Zend\ServiceManager\Factory\InvokableFactory;
 use Zend\Stdlib\ArrayUtils;
 
