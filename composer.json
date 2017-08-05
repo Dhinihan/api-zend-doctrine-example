@@ -20,7 +20,7 @@
         "zendframework/zend-cache": "^2.7.1",
         "zendframework/zend-json": "^3.0",
         "zendframework/zend-log": "^2.9",
-        "zendframework/zend-psr7bridge": "^0.2.2",
+        "zendframework/zend-psr7bridge": "^1.0.0",
         "zendframework/zend-paginator": "^2.7.0",
         "ramsey/uuid": "^3.6",
         "ramsey/uuid-doctrine": "^1.4",

@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "7f29fa8473784de2bd46e4906d1a2628",
-    "content-hash": "71691b2b8f4ab327b0cb2964b83553d5",
+    "hash": "efe53cb02ccc045f03244a7a80d832c6",
+    "content-hash": "aa4fd72ea4d36a36c0f118c5e2289ac4",
     "packages": [
         {
             "name": "container-interop/container-interop",
@@ -2810,27 +2810,27 @@
         },
         {
             "name": "zendframework/zend-psr7bridge",
-            "version": "0.2.2",
+            "version": "1.0.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/zendframework/zend-psr7bridge.git",
-                "reference": "86c0b53b0c6381391c4add4a93a56e51d5c74605"
+                "reference": "935721336ded76fd5ba90ba7637c7d85b4d0cf68"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/zendframework/zend-psr7bridge/zipball/86c0b53b0c6381391c4add4a93a56e51d5c74605",
-                "reference": "86c0b53b0c6381391c4add4a93a56e51d5c74605",
+                "url": "https://api.github.com/repos/zendframework/zend-psr7bridge/zipball/935721336ded76fd5ba90ba7637c7d85b4d0cf68",
+                "reference": "935721336ded76fd5ba90ba7637c7d85b4d0cf68",
                 "shasum": ""
             },
             "require": {
-                "php": ">=5.5",
+                "php": "^5.6 || ^7.0",
                 "psr/http-message": "^1.0",
                 "zendframework/zend-diactoros": "^1.1",
-                "zendframework/zend-http": "^2.5"
+                "zendframework/zend-http": "^2.6"
             },
             "require-dev": {
-                "phpunit/phpunit": "^4.7",
-                "squizlabs/php_codesniffer": "^2.3"
+                "phpunit/phpunit": "^5.7.15 || ^6.0.8",
+                "zendframework/zend-coding-standard": "~1.0.0"
             },
             "type": "library",
             "extra": {
@@ -2851,11 +2851,13 @@
             "description": "PSR-7 <-> Zend\\Http bridge",
             "homepage": "https://github.com/zendframework/zend-psr7bridge",
             "keywords": [
+                "ZendFramework",
                 "http",
                 "psr",
-                "psr-7"
+                "psr-7",
+                "zend"
             ],
-            "time": "2016-05-10 21:44:39"
+            "time": "2017-08-02 15:52:02"
         },
         {
             "name": "zendframework/zend-router",
