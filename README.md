@@ -1,1 +1,2 @@
 [![Build Status](https://travis-ci.org/Dhinihan/api-zend-doctrine-example.svg?branch=master)](https://travis-ci.org/Dhinihan/api-zend-doctrine-example)
+[![Build Status](https://codeclimate.com/github/Dhinihan/api-zend-doctrine-example.png)](https://codeclimate.com/github/Dhinihan/api-zend-doctrine-example)
