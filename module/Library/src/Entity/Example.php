@@ -42,4 +42,11 @@ class Example implements JsonSerializable, EntityInterface
     {
         return $this->toArray();
     }
+
+    public function updateFromInput(array $input)
+    {
+        if (array_key_exists('description', $input)) {
+            $this->description = $input['description'];
+        }
+    }
 }

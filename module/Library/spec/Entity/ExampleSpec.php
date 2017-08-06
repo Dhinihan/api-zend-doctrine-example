@@ -34,4 +34,11 @@ class ExampleSpec extends ObjectBehavior
         $array->shouldHaveKeyWithValue('id', $this->id->toString());
         $array->shouldHaveKeyWithValue('description', 'A Description');
     }
+
+    public function it_can_be_changed_by_input()
+    {
+        $this->updateFromInput(['description' => 'A better one']);
+        $array = $this->toArray();
+        $array->shouldHaveKeyWithValue('description', 'A better one');
+    }
 }

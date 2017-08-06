@@ -92,4 +92,27 @@ class IndexControllerTest extends AbstractHttpControllerTestCase
 
         $this->assertEquals('Yet Another Example', $result->fetchAll()[0]['description']);
     }
+
+    public function testPut()
+    {
+        $this->getRequest()
+            ->setMethod('PUT')
+            ->setContent('{"description":"A Better Example"}');
+
+        $this->getRequest()->getHeaders()->addHeaderLine('Content-Type', 'application/json');
+
+        $this->dispatch('/application/de5ff4ce-74c8-11e7-b5a5-be2e44b06b34');
+        $this->assertResponseStatusCode(200);
+
+        $body = $this->getResponse()->getBody();
+        $arrayBody = json_decode($body, true);
+
+        $this->assertEquals($arrayBody['description'], 'A Better Example');
+
+        $result = $this->pdo->query(
+            'select description from example where id = \'de5ff4ce-74c8-11e7-b5a5-be2e44b06b34\''
+        );
+
+        $this->assertEquals('A Better Example', $result->fetchAll()[0]['description']);
+    }
 }

@@ -55,8 +55,7 @@ abstract class AbstractCrudController extends AbstractRestfulController
     public function get($id)
     {
         $entity = $this->repository->get($id);
-        $data = $entity->toArray();
-        return new JsonModel($data);
+        return new JsonModel($entity->toArray());
     }
 
     public function create($input)
@@ -68,7 +67,18 @@ abstract class AbstractCrudController extends AbstractRestfulController
         $response = $this->getResponse();
         $response->setStatusCode(201);
 
-        $data = $entity->toArray();
-        return new JsonModel($data);
+        return new JsonModel($entity->toArray());
+    }
+
+    /**
+     * Avoid this, it is only for completeness.
+     * Instead create a controller with a specific command that represents the domain problem that it solves.
+     */
+    public function update($id, $input)
+    {
+        $entity = $this->repository->get($id);
+        $entity->updateFromInput($input);
+        $this->repository->save($entity);
+        return new JsonModel($entity->toArray());
     }
 }

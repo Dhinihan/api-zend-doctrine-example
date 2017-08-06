@@ -58,6 +58,7 @@ class AbstractCrudControllerSpec extends ObjectBehavior
         $json->shouldContain('"page":1');
         $json->shouldContain('"page_size":25');
         $json->shouldContain('"items":[{"id":1},{"id":2},{"id":3},{"id":4}]');
+        $this->getResponse()->getStatusCode()->shouldReturn(200);
     }
 
     public function it_can_get_a_specific_entity(EntityInterface $entity)
@@ -73,6 +74,7 @@ class AbstractCrudControllerSpec extends ObjectBehavior
 
         $json->shouldContain('"id":1');
         $json->shouldContain('"nome":"Um Nome"');
+        $this->getResponse()->getStatusCode()->shouldReturn(200);
     }
 
     public function it_can_create_an_entity(EntityInterface $entity)
@@ -89,6 +91,21 @@ class AbstractCrudControllerSpec extends ObjectBehavior
         $json->shouldContain('"description":"An Entity"');
 
         $this->getResponse()->getStatusCode()->shouldReturn(201);
+    }
+
+    public function it_can_update_an_entity(EntityInterface $entity)
+    {
+        $this->repository->get(1)->willReturn($entity);
+        $entity->updateFromInput(['description' => 'A Better Entity'])->shouldBeCalled();
+        $this->repository->save($entity)->shouldBeCalled();
+        $entity->toArray()->willReturn(['id' => 1, 'description' => 'A Better Entity']);
+
+        $response = $this->update(1, ['description' => 'A Better Entity']);
+        $json = $response->serialize();
+
+        $json->shouldContain('"id":1');
+        $json->shouldContain('"description":"A Better Entity"');
+        $this->getResponse()->getStatusCode()->shouldReturn(200);
     }
 
     public function getMatchers()
