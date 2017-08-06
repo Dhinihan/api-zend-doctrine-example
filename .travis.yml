@@ -7,5 +7,5 @@ install:
   - ln -s vendor/bin/phpcs phpcs
 script:
   - composer cs-check
-  - composer test
+  - composer test_coverage
 after_script: vendor/bin/coveralls -v

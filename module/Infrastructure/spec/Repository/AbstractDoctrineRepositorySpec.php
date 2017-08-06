@@ -4,6 +4,7 @@ namespace spec\Infrastructure\Repository;
 
 use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\EntityRepository;
+use Infrastructure\Exception\EntityNotFoundException;
 use Infrastructure\Exception\InvalidEntityType;
 use Infrastructure\Repository\AbstractDoctrineRepository;
 use Infrastructure\Repository\RepositoryInterface;
@@ -63,7 +64,7 @@ class AbstractDoctrineRepositorySpec extends ObjectBehavior
     {
         $this->em->getRepository('spec\Infrastructure\Repository\Entity')->willReturn($repository);
         $repository->find(1)->willReturn(null);
-        $this->shouldThrow(\Infrastructure\Exception\EntityNotFoundException::class)->during('get', [1]);
+        $this->shouldThrow(EntityNotFoundException::class)->during('get', [1]);
     }
 
     public function it_fails_when_entity_is_dont_implement_entity_interface(EntityRepository $repository, $entity)
@@ -87,6 +88,24 @@ class AbstractDoctrineRepositorySpec extends ObjectBehavior
     public function it_cannot_save_another_entity(EntityInterface $entity)
     {
         $this->shouldThrow(InvalidEntityType::class)->during('save', [$entity]);
+    }
+
+    public function it_can_delete_an_entity(EntityRepository $repository, Entity $entity)
+    {
+        $this->em->getRepository('spec\Infrastructure\Repository\Entity')->willReturn($repository);
+        $repository->find(1)->willReturn($entity);
+
+        $this->em->remove($entity)->shouldBeCalled();
+        $this->em->flush()->shouldBeCalled();
+        $this->delete(1);
+    }
+
+    public function it_cannot_delete_an_unexisting_entity(EntityRepository $repository)
+    {
+        $this->em->getRepository('spec\Infrastructure\Repository\Entity')->willReturn($repository);
+        $repository->find(1)->willReturn(null);
+
+        $this->shouldThrow(EntityNotFoundException::class)->during('delete', [1]);
     }
 }
 

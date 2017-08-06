@@ -52,4 +52,11 @@ abstract class AbstractDoctrineRepository implements RepositoryInterface
         $this->em->persist($entity);
         $this->em->flush();
     }
+
+    public function delete($identifier)
+    {
+        $entity = $this->get($identifier);
+        $this->em->remove($entity);
+        $this->em->flush();
+    }
 }

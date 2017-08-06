@@ -108,6 +108,13 @@ class AbstractCrudControllerSpec extends ObjectBehavior
         $this->getResponse()->getStatusCode()->shouldReturn(200);
     }
 
+    public function it_can_delete_an_entity(EntityInterface $entity)
+    {
+        $this->repository->delete(1)->shouldBeCalled();
+        $this->delete(1)->shouldReturn(null);
+        $this->getResponse()->getStatusCode()->shouldReturn(204);
+    }
+
     public function getMatchers()
     {
         return [

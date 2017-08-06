@@ -53,6 +53,9 @@
         ],
         "serve": "php -S 0.0.0.0:8080 -t public public/index.php",
         "test": "phpspec run --ansi",
+        "test_coverage": [
+            "phpspec run --ansi --format=dot --config=phpspec-coverage.yml"
+        ],
         "integration": "phpunit"
     },
     "require-dev": {

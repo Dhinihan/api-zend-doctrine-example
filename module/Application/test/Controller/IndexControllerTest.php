@@ -115,4 +115,16 @@ class IndexControllerTest extends AbstractHttpControllerTestCase
 
         $this->assertEquals('A Better Example', $result->fetchAll()[0]['description']);
     }
+
+    public function testDelete()
+    {
+        $this->dispatch('/application/de5ff4ce-74c8-11e7-b5a5-be2e44b06b34', 'DELETE');
+        $this->assertResponseStatusCode(204);
+
+        $result = $this->pdo->query(
+            'select description from example where id = \'de5ff4ce-74c8-11e7-b5a5-be2e44b06b34\''
+        );
+
+        $this->assertEquals(count($result->fetchAll()), 0);
+    }
 }

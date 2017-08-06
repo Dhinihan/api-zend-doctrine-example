@@ -70,6 +70,13 @@ abstract class AbstractCrudController extends AbstractRestfulController
         return new JsonModel($entity->toArray());
     }
 
+    public function delete($id)
+    {
+        $this->repository->delete($id);
+        $response = $this->getResponse();
+        $response->setStatusCode(204);
+    }
+
     /**
      * Avoid this, it is only for completeness.
      * Instead create a controller with a specific command that represents the domain problem that it solves.
