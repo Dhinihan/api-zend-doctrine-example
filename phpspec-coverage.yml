@@ -1,4 +1,9 @@
 suites:
+  model_suite:
+    namespace: Model
+    src_path: module/Model/src/
+    spec_path: module/Model
+    psr4_prefix: Model
   application_suite:
     namespace: Application
     src_path: module/Application/src/
@@ -26,3 +31,4 @@ extensions:
       - module/Application/src
       - module/Infrastructure/src
       - module/Library/src
+      - module/Model/src
