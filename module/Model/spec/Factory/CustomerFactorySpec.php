@@ -23,7 +23,8 @@ class CustomerFactorySpec extends ObjectBehavior
     public function it_can_build_a_customer_from_input()
     {
         $this->createFromInput([
-            'name' => 'George the customer'
+            'name' => 'George the customer',
+            'cpf' => '057.748.194-00'
         ])->shouldHaveType(Customer::class);
     }
 

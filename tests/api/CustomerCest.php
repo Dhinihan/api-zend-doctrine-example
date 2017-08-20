@@ -14,10 +14,14 @@ class CustomerCest
         $this->customers['customer'] = [
             'name' => 'George',
             'id' => 'de5ff4ce-74c8-11e7-b5a5-be2e44b06b34',
+            'cpf' => '05774819400',
         ];
         $this->customers['another customer'] = array_merge(
             $this->customers['customer'],
-            ['id' => '4b6771b8-74ca-11e7-b5a5-be2e44b06b34']
+            [
+                'id' => '4b6771b8-74ca-11e7-b5a5-be2e44b06b34',
+                'cpf' => '03456406835',
+            ]
         );
     }
 
@@ -45,13 +49,19 @@ class CustomerCest
 
     public function tryToCreateNewCustomer(ApiTester $I)
     {
-        $I->sendPOST('/customer', ['name' => 'Hord Ford Darkenskull']);
+        $newCustomer = [
+            'name' => 'Hord Ford Darkenskull',
+            'cpf' => '35322813179'
+        ];
+
+        $I->sendPOST('/customer', $newCustomer);
         $I->seeResponseCodeIs(201);
-        $I->seeResponseContainsJson(['name' => 'Hord Ford Darkenskull']);
+        $I->seeResponseContainsJson($newCustomer);
         $customerId = $I->grabDataFromResponseByJsonPath('$.id');
         $I->seeInDatabase('customer', [
             'id' => $customerId[0],
-            'name' => 'Hord Ford Darkenskull'
+            'name' => 'Hord Ford Darkenskull',
+            'cpf' => '35322813179'
         ]);
     }
 }

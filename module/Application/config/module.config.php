@@ -9,6 +9,7 @@ namespace Application;
 
 use Application\Controller\AbstractCrudController;
 use Application\Controller\IndexController;
+use Infrastructure\DoctrineType\CPFType;
 use Infrastructure\Rest\JsonError;
 use Ramsey\Uuid\Doctrine\UuidType;
 use Zend\ServiceManager\AbstractFactory\ConfigAbstractFactory;
@@ -86,6 +87,7 @@ return ArrayUtils::merge(
                 'orm_default' => [
                     'types' => [
                         'uuid' => UuidType::class,
+                        'cpf' => CPFType::class,
                     ],
                 ],
             ],
