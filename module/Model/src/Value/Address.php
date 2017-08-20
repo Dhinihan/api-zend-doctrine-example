@@ -15,7 +15,12 @@ class Address implements AggregateValueInterface
 
     public function __toString()
     {
-        throw new \Exception('Method not implemented');
+        $info = $this->toArray();
+        $text = [];
+        foreach ($info as $key => $value) {
+            $text[] = "$key: $value";
+        }
+        return implode(', ', $text);
     }
 
     public function toArray() : array

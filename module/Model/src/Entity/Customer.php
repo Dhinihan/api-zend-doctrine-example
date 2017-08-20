@@ -4,6 +4,7 @@ namespace Model\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Library\Entity\EntityInterface;
+use Model\Value\Address;
 use Model\Value\CPF;
 use Model\Value\Name;
 use Ramsey\Uuid\Uuid;
@@ -28,6 +29,8 @@ class Customer implements EntityInterface
      */
     private $cpf;
 
+    private $address;
+
     public function __construct(Uuid $id, Name $name, CPF $cpf)
     {
         $this->id = $id;
@@ -40,7 +43,8 @@ class Customer implements EntityInterface
         return [
             'name' => (string) $this->name,
             'cpf' => (string) $this->cpf,
-            'id' => (string) $this->id
+            'id' => (string) $this->id,
+            'address' => $this->address ? $this->address->toArray() : null
         ];
     }
 
@@ -57,5 +61,10 @@ class Customer implements EntityInterface
     public function name()
     {
         return $this->name;
+    }
+
+    public function receiveAddress(Address $address)
+    {
+        $this->address = $address;
     }
 }

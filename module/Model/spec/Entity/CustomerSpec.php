@@ -4,6 +4,7 @@ namespace spec\Model\Entity;
 
 use Library\Entity\EntityInterface;
 use Model\Entity\Customer;
+use Model\Value\Address;
 use Model\Value\CPF;
 use Model\Value\Name;
 use PhpSpec\ObjectBehavior;
@@ -41,9 +42,25 @@ class CustomerSpec extends ObjectBehavior
 
     public function it_can_be_an_array()
     {
-        $array = $this->toArray();
+        $array = $this->jsonSerialize();
         $array->shouldHaveKeyWithValue('id', '07b7423c-7a46-11e7-bb31-be2e44b06b34');
         $array->shouldHaveKeyWithValue('name', 'John Doe');
         $array->shouldHaveKeyWithValue('cpf', '057.748.194-00');
+    }
+
+    public function it_can_receive_an_address(Address $address)
+    {
+        $addressArray = [
+            'cep' => '12345678',
+            'street_info' => '637, Block A',
+        ];
+        $address->toArray()->willReturn($addressArray);
+        $this->receiveAddress($address);
+        $this->toArray()->shouldHaveKeyWithValue('address', $addressArray);
+    }
+
+    public function it_cannot_be_changed_by_input()
+    {
+        $this->shouldThrow(new \Exception("Invalid command", 405))->duringUpdateFromInput([]);
     }
 }
