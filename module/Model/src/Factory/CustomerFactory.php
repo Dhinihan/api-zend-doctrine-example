@@ -2,7 +2,6 @@
 
 namespace Model\Factory;
 
-use Assert\Assert;
 use Assert\Assertion;
 use Library\Entity\EntityInterface;
 use Library\Factory\EntityFactoryInterface;
