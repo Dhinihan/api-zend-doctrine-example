@@ -1,4 +1,9 @@
 suites:
+  model_suite:
+    namespace: Model
+    src_path: module/Model/src/
+    spec_path: module/Model
+    psr4_prefix: Model
   application_suite:
     namespace: Application
     src_path: module/Application/src/
@@ -14,16 +19,3 @@ suites:
     src_path: module/Library/src/
     spec_path: module/Library
     psr4_prefix: Library
-
-
-# extensions:
-#   LeanPHP\PhpSpec\CodeCoverage\CodeCoverageExtension:
-#     format:
-#       - clover
-#       - text
-#     output:
-#       clover: coverage.xml
-#     whitelist:
-#       - module/Application/src
-#       - module/Infrastructure/src
-#       - module/Library/src

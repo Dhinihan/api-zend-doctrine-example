@@ -1,0 +1,17 @@
+actor: ApiTester
+modules:
+    enabled:
+        - \Test\Helper\Api
+        - Db
+        - REST:
+            url: http://localhost:8080
+            depends: PhpBrowser
+            part: Json
+    config:
+        Db:
+            dsn: 'pgsql:host=localhost;port=5432;dbname=api'
+            user: 'postgres'
+            password:
+            dump: 'tests/_data/api.sql'
+            cleanup: true # reload dump between tests
+            populate: true # load dump before all tests

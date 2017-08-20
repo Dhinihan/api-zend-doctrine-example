@@ -4,6 +4,7 @@ namespace Infrastructure\Rest;
 
 use Zend\EventManager\AbstractListenerAggregate;
 use Zend\EventManager\EventManagerInterface;
+use Zend\Mvc\Application;
 use Zend\Mvc\MvcEvent;
 use Zend\View\Model\JsonModel;
 
@@ -15,12 +16,12 @@ class JsonError extends AbstractListenerAggregate
         $this->listeners[] = $events->attach(MvcEvent::EVENT_RENDER_ERROR, [$this, 'handleError'], $priority);
     }
 
-    public function serializeToJson(\Throwable $exception, int $statusDefault = 500) : JsonModel
+    public function serializeToJson(\Throwable $exception, int $statusDefault = 500) : array
     {
         $data = [];
         $data['message'] = $exception->getMessage();
         $data['status'] = $this->extractStatus($exception, $statusDefault);
-        return new JsonModel($data);
+        return $data;
     }
 
     public function extractStatus(\Throwable $exception, int $statusDefault) : int
@@ -32,18 +33,28 @@ class JsonError extends AbstractListenerAggregate
         return $code;
     }
 
-    public function handleError(MvcEvent $e)
+    public function handleError(MvcEvent $event)
     {
-        $request = $e->getParam('application')->getRequest();
-        $response  = $e->getResponse();
-        $exception = $e->getParam('exception');
+        $request = $event->getParam('application')->getRequest();
+        $response  = $event->getResponse();
 
-        $json = $this->serializeToJson($exception, $response->getStatusCode());
-        $json->setTerminal(true);
+        $data = $this->getJsonError($event, $response->getStatusCode());
 
-        $response->setStatusCode($this->extractStatus($exception, $response->getStatusCode()));
+        $jsonModel = new JsonModel($data);
+        $jsonModel->setTerminal(true);
+        $response->setStatusCode($data['status']);
 
-        $e->setResult($json);
-        $e->setViewModel($json);
+        $event->setResult($jsonModel);
+        $event->setViewModel($jsonModel);
+    }
+
+    private function getJsonError(MvcEvent $event, $code) : array
+    {
+        if ($event->getError() === Application::ERROR_EXCEPTION) {
+            return $this->serializeToJson($event->getParam('exception'), $code);
+        }
+        $data['message'] = $event->getError();
+        $data['status'] = 500;
+        return $data;
     }
 }

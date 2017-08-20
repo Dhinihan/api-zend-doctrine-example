@@ -10,6 +10,6 @@ class ExampleRepository extends AbstractDoctrineRepository
 {
     public function __construct(EntityManager $em)
     {
-        parent::__construct($em, Example::class);
+        return parent::__construct($em, Example::class);
     }
 }

@@ -10,7 +10,7 @@ return [
                     'port'     => '5432',
                     'user'     => 'postgres',
                     'password' => '',
-                    'dbname'   => 'api_teste',
+                    'dbname'   => 'api',
                 ],
             ],
         ],

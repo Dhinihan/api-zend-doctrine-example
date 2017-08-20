@@ -19,15 +19,15 @@ abstract class AbstractCrudController extends AbstractRestfulController
         $this->factory = $factory;
     }
 
-    public static function config($controllerClass, $entidadeName)
+    public static function config($controllerClass, $entityName)
     {
         return [
             'router' => [
                 'routes' => [
-                    "$entidadeName" => [
+                    "$entityName" => [
                         'type'    => Segment::class,
                         'options' => [
-                            'route'    => "/$entidadeName" . '[/:id]',
+                            'route'    => "/$entityName" . '[/:id]',
                             'defaults' => [
                                 'controller' => $controllerClass
                             ],

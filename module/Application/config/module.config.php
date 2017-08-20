@@ -9,34 +9,41 @@ namespace Application;
 
 use Application\Controller\AbstractCrudController;
 use Application\Controller\IndexController;
-use Application\Controller\IndexControllerFactory;
 use Infrastructure\Rest\JsonError;
-use Library\Factory\ExampleFactory;
-use Library\Repository\ExampleRepository;
-use Library\Repository\ExampleRepositoryFactory;
 use Ramsey\Uuid\Doctrine\UuidType;
-use Zend\ServiceManager\Factory\InvokableFactory;
+use Zend\ServiceManager\AbstractFactory\ConfigAbstractFactory;
 use Zend\Stdlib\ArrayUtils;
 
 return ArrayUtils::merge(
     AbstractCrudController::config(IndexController::class, 'application'),
     [
+        ConfigAbstractFactory::class => [
+            IndexController::class => [
+                'Library\Repository\ExampleRepository',
+                'Library\Factory\ExampleFactory',
+            ],
+            'Library\Repository\ExampleRepository' => [
+                'Doctrine\ORM\EntityManager'
+            ],
+            'Library\Factory\ExampleFactory' => [],
+            JsonError::class => [],
+        ],
         'api-problem' => [
             'render_error_controllers' => IndexController::class
         ],
         'controllers' => [
-            'factories' => [
-                IndexController::class => IndexControllerFactory::class
+            'abstract_factories' => [
+                ConfigAbstractFactory::class
             ],
         ],
         'listeners' => [
             JsonError::class
         ],
         'service_manager' => [
+            'abstract_factories' => [
+                ConfigAbstractFactory::class
+            ],
             'factories' => [
-                ExampleRepository::class => ExampleRepositoryFactory::class,
-                ExampleFactory::class => InvokableFactory::class,
-                JsonError::class => InvokableFactory::class
             ],
         ],
         'view_manager' => [
@@ -60,7 +67,8 @@ return ArrayUtils::merge(
                     'class' => \Doctrine\ORM\Mapping\Driver\AnnotationDriver::class,
                     'cache' => 'array',
                     'paths' => [
-                        __DIR__ . '/../src/Entity'
+                        __DIR__ . '/../../Library/src/Entity',
+                        __DIR__ . '/../../Model/src/Entity'
                     ],
                 ],
 
@@ -70,6 +78,7 @@ return ArrayUtils::merge(
                     'drivers' => [
                         // register `my_annotation_driver` for any entity under namespace `My\Namespace`
                         'Library\Entity' => 'my_annotation_driver',
+                        'Model\Entity' => 'my_annotation_driver',
                     ],
                 ],
             ],

@@ -2,10 +2,15 @@ language: php
 php:
   - '7.0'
   - '7.1'
+services:
+  - 'postgres'
 install:
   - composer install
-  - ln -s vendor/bin/phpcs phpcs
+  - php -S 0.0.0.0:8080 -t public public/index.php &> /dev/null &
+  - psql -c 'create database api;' -U postgres
+  - ln -sv vendor/bin/phpcs phpcs
 script:
   - composer cs-check
   - composer test_coverage
+  - composer integration
 after_script: vendor/bin/coveralls -v

@@ -9,7 +9,6 @@ return PhpCsFixer\Config::create()
         '@PSR2' => true,
         '@PSR1' => true,
         'ordered_imports' => true,
-        'no_unused_imports' => true,
+        'no_unused_imports' => true
     ])
-    ->setFinder($finder)
-;
+    ->setFinder($finder);
