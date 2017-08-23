@@ -3,10 +3,21 @@
 namespace Model\Value;
 
 use Assert\Assertion;
+use Doctrine\ORM\Mapping as ORM;
 
+/**
+ * @ORM\Embeddable
+ */
 class StreetInfo implements AggregateValueInterface
 {
+    /**
+     * @ORM\Column(type = "string", length = 10, nullable = true)
+     */
     protected $streetNumber;
+
+    /**
+     * @ORM\Column(name = "street_other_info", type = "string", length=100, nullable = true)
+     */
     protected $otherInfo;
 
     public function __construct(string $streetNumber, string $otherInfo = null)

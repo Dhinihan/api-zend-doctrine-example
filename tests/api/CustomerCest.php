@@ -64,4 +64,36 @@ class CustomerCest
             'cpf' => '35322813179'
         ]);
     }
+
+    public function tryToAddAnAddressToACustomer(ApiTester $I)
+    {
+        $customer = $this->customers['customer'];
+
+        $I->haveInDatabase('customer', $customer);
+        $address = [
+            'cep' => '12345-123',
+            'street_info' => [
+                'street_number' => '34B',
+                'other_info' => 'Third house from the second street.',
+            ]
+        ];
+        $I->sendPOST("/customer/${customer['id']}/add-address", $address);
+        $I->seeResponseCodeIs(200);
+
+        $address['street_info'] = '34B, Third house from the second street.';
+        $address['cep'] = '12345123';
+
+        $I->seeResponseContainsJson([
+            'address' => $address
+        ]);
+
+        $customerId = $I->grabDataFromResponseByJsonPath('$.id');
+
+        $I->seeInDatabase('customer', [
+            'id' => $customerId[0],
+            'cep' => '12345123',
+            'street_number' => '34B',
+            'street_other_info' => 'Third house from the second street.',
+        ]);
+    }
 }

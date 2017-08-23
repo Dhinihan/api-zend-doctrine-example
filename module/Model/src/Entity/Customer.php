@@ -29,6 +29,9 @@ class Customer implements EntityInterface
      */
     private $cpf;
 
+    /**
+     * @ORM\Embedded(class = "Model\Value\Address", columnPrefix = false)
+     */
     private $address;
 
     public function __construct(Uuid $id, Name $name, CPF $cpf)
@@ -36,6 +39,7 @@ class Customer implements EntityInterface
         $this->id = $id;
         $this->name = $name;
         $this->cpf = $cpf;
+        $this->address = null;
     }
 
     public function toArray() : array

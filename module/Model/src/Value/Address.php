@@ -2,12 +2,24 @@
 
 namespace Model\Value;
 
+use Doctrine\ORM\Mapping as ORM;
+
+/**
+ * @ORM\Embeddable
+ */
 class Address implements AggregateValueInterface
 {
+    /**
+     * @ORM\Column(type = "string", length = 8, nullable = true, options = {"fixed":true})
+     */
     protected $cep;
+
+    /**
+     * @ORM\Embedded(class = "Model\Value\StreetInfo", columnPrefix = false)
+     */
     protected $streetInfo;
 
-    public function __construct(CEP $cep, $streetInfo)
+    public function __construct(CEP $cep, StreetInfo $streetInfo)
     {
         $this->cep = $cep;
         $this->streetInfo = $streetInfo;

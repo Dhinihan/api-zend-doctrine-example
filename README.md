@@ -5,4 +5,11 @@
 
 # TODO
 
-[ ] Add address to the infrastructure
+- [x] Add address to the infrastructure
+- [ ] Plugin for json params
+- [ ] Unit test for standard validation
+- [ ] Acceptance tests for some validation
+- [ ] add a config folder
+- [ ] force config to use class constant
+- [ ] Deal with null embeddables
+- [ ] Deal with doctrine types

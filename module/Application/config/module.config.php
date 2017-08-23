@@ -9,6 +9,7 @@ namespace Application;
 
 use Application\Controller\AbstractCrudController;
 use Application\Controller\IndexController;
+use Doctrine\ORM\Mapping\UnderscoreNamingStrategy;
 use Infrastructure\DoctrineType\CPFType;
 use Infrastructure\Rest\JsonError;
 use Ramsey\Uuid\Doctrine\UuidType;
@@ -27,6 +28,7 @@ return ArrayUtils::merge(
                 'Doctrine\ORM\EntityManager'
             ],
             'Library\Factory\ExampleFactory' => [],
+            UnderscoreNamingStrategy::class => [],
             JsonError::class => [],
         ],
         'api-problem' => [
@@ -69,7 +71,8 @@ return ArrayUtils::merge(
                     'cache' => 'array',
                     'paths' => [
                         __DIR__ . '/../../Library/src/Entity',
-                        __DIR__ . '/../../Model/src/Entity'
+                        __DIR__ . '/../../Model/src/Entity',
+                        __DIR__ . '/../../Model/src/Value'
                     ],
                 ],
 
@@ -80,11 +83,13 @@ return ArrayUtils::merge(
                         // register `my_annotation_driver` for any entity under namespace `My\Namespace`
                         'Library\Entity' => 'my_annotation_driver',
                         'Model\Entity' => 'my_annotation_driver',
+                        'Model\Value' => 'my_annotation_driver',
                     ],
                 ],
             ],
             'configuration' => [
                 'orm_default' => [
+                    'naming_strategy' => UnderscoreNamingStrategy::class,
                     'types' => [
                         'uuid' => UuidType::class,
                         'cpf' => CPFType::class,
