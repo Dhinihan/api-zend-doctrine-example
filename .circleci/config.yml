@@ -7,8 +7,11 @@ jobs:
   build:
     docker:
       # Specify the version you desire here
-      - image: circleci/php:7.1-node-browsers
+      - image: circleci/php:7.1
       - image: circleci/postgres:latest-ram
+        environment:
+          POSTGRES_USER: postgres
+          POSTGRES_DB: api
 
       # Specify service dependencies here if necessary
       # CircleCI maintains a library of pre-built images
@@ -23,7 +26,8 @@ jobs:
       - checkout
 
       - run: sudo apt update # PHP CircleCI 2.0 Configuration File# PHP CircleCI 2.0 Configuration File sudo apt install zlib1g-dev libsqlite3-dev
-      - run: sudo docker-php-ext-install zip
+      - run: sudo apt install libpq-dev
+      - run: sudo docker-php-ext-install zip pdo pdo_pgsql
 
       # Download and cache dependencies
       - restore_cache:
@@ -39,14 +43,11 @@ jobs:
           key: v1-dependencies-{{ checksum "composer.json" }}
           paths:
             - ./vendor
-      - restore_cache:
-          keys:
-            - node-v1-{{ checksum "package.json" }}
-            - node-v1-
 
-      # prepare the database
-      - run: php -S 0.0.0.0:8080 -t public public/index.php &> /dev/null &
-      - run: psql -c 'create database api;' -U postgres
+      - run:
+          command: php -S 0.0.0.0:8080 -t public public/index.php
+          background: true
+
       - run: ln -sv vendor/bin/phpcs phpcs
 
       - run: composer cs-check
